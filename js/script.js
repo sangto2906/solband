@@ -36,24 +36,19 @@ class BandWebsite {
         gsap.registerPlugin(ScrollTrigger);
 
         // Animate sections on scroll
+        const isMobile = window.innerWidth <= 700;
         gsap.utils.toArray('section').forEach((section, index) => {
             gsap.fromTo(section, 
-                {
-                    opacity: 0,
-                    y: 50
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-            });
+                { opacity: 0, y: isMobile ? 30 : 50 },
+                { opacity: 1, y: 0, duration: isMobile ? 0.5 : 0.8, ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                  }
+                }
+            );
         });
     }
 
@@ -61,7 +56,8 @@ class BandWebsite {
     setupScrollEffects() {
         // Parallax effect for hero section (chỉ chạy nếu tồn tại .hero-section)
         const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
+        const isMobile = window.innerWidth <= 700;
+        if (heroSection && !isMobile) {
             gsap.to('.hero-section', {
                 yPercent: -20,
                 ease: "none",
@@ -80,10 +76,7 @@ class BandWebsite {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
@@ -101,7 +94,6 @@ class BandWebsite {
                 <p>Loading BAND...</p>
             </div>
         `;
-        
         loader.style.cssText = `
             position: fixed;
             top: 0;
@@ -115,13 +107,10 @@ class BandWebsite {
             z-index: 9999;
             color: white;
             font-family: 'Inter', sans-serif;
+            transition: opacity 0.5s;
         `;
-
         const loaderContent = loader.querySelector('.loader-content');
-        loaderContent.style.cssText = `
-            text-align: center;
-        `;
-
+        loaderContent.style.cssText = `text-align: center;`;
         const spinner = loader.querySelector('.loader-spinner');
         spinner.style.cssText = `
             width: 50px;
@@ -132,28 +121,24 @@ class BandWebsite {
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         `;
-
         // Add keyframes for spinner animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
+        if (!document.getElementById('loader-spin-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'loader-spin-keyframes';
+            style.textContent = `
+                @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            `;
+            document.head.appendChild(style);
+        }
         document.body.appendChild(loader);
-
         // Remove loader after page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.style.opacity = '0';
-                loader.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-                    document.body.removeChild(loader);
+                setTimeout(() => {
+                    if (loader.parentNode) loader.parentNode.removeChild(loader);
                 }, 500);
-            }, 1000);
+            }, 500);
         });
     }
 }
@@ -169,23 +154,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // Add smooth scrolling behavior
 document.documentElement.style.scrollBehavior = 'smooth';
 
-// Add intersection observer for lazy loading images
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
+// Lazy load all images with loading="lazy" and data-src
+function enableLazyLoad() {
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
         });
-    });
-    
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-} 
+        document.querySelectorAll('img[data-src],img.lazy').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+}
+document.addEventListener('DOMContentLoaded', enableLazyLoad);
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
