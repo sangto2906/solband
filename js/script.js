@@ -8,7 +8,7 @@ class BandWebsite {
         this.setupMobileMenu();
         this.setupAnimations();
         this.setupScrollEffects();
-        this.setupContactLinks();
+        // Đã loại bỏ setupContactLinks vì không còn cần thiết
     }
 
     // Mobile menu functionality
@@ -55,103 +55,24 @@ class BandWebsite {
                     }
             });
         });
-
-        // Animate team members with stagger
-        gsap.fromTo('.team-member',
-            {
-                opacity: 0,
-                y: 30,
-                scale: 0.9
-            },
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: '.team-section',
-                    start: "top 70%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-        });
-
-        // Animate service items
-        gsap.fromTo('.service-item',
-            {
-                opacity: 0,
-                x: -30
-            },
-            {
-                opacity: 1,
-                x: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: '.services-section',
-                    start: "top 70%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-        });
-
-        // Animate commitment items
-        gsap.fromTo('.commitment-item',
-            {
-                opacity: 0,
-                y: 30
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: '.commitment-section',
-                    start: "top 70%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-        });
-
-        // Animate contact items
-        gsap.fromTo('.contact-item',
-            {
-                opacity: 0,
-                x: 30
-            },
-            {
-                opacity: 1,
-                x: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: '.contact-section',
-                    start: "top 70%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-        });
     }
 
     // Scroll effects
     setupScrollEffects() {
-        // Parallax effect for hero section
-        gsap.to('.hero-section', {
-            yPercent: -20,
-            ease: "none",
-            scrollTrigger: {
-                trigger: '.hero-section',
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
+        // Parallax effect for hero section (chỉ chạy nếu tồn tại .hero-section)
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+            gsap.to('.hero-section', {
+                yPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: '.hero-section',
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -168,35 +89,7 @@ class BandWebsite {
         });
     }
 
-    // Contact links functionality
-    setupContactLinks() {
-        // Phone number click handler
-        const phoneLink = document.querySelector('.contact-item:first-child');
-        if (phoneLink) {
-            phoneLink.addEventListener('click', () => {
-                window.open('tel:0123456789');
-            });
-            phoneLink.style.cursor = 'pointer';
-        }
-
-        // Email click handler
-        const emailLink = document.querySelector('.contact-item:nth-child(2)');
-        if (emailLink) {
-            emailLink.addEventListener('click', () => {
-                window.open('mailto:booking@band.com');
-            });
-            emailLink.style.cursor = 'pointer';
-        }
-
-        // Facebook click handler
-        const facebookLink = document.querySelector('.contact-item:nth-child(3)');
-        if (facebookLink) {
-            facebookLink.addEventListener('click', () => {
-                window.open('https://facebook.com/bandmusic', '_blank');
-            });
-            facebookLink.style.cursor = 'pointer';
-        }
-    }
+    // Đã loại bỏ setupContactLinks vì không còn cần thiết
 
     // Utility function to add loading animation
     addLoadingAnimation() {
@@ -427,4 +320,156 @@ document.addEventListener('DOMContentLoaded', function() {
             firstDetail.classList.add('show');
         }, 10);
     }
+}); 
+
+// Zoom member image modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('image-modal-img');
+    const arrowLeft = document.querySelector('.image-modal-arrow-left');
+    const arrowRight = document.querySelector('.image-modal-arrow-right');
+
+    // Lưu trữ danh sách ảnh hiện tại và vị trí đang xem
+    let currentGallery = [];
+    let currentIndex = 0;
+
+    // Open modal when click image
+    const galleryImages = document.querySelectorAll('.member-gallery-img');
+    galleryImages.forEach(img => {
+        img.addEventListener('click', function() {
+            // Xác định gallery hiện tại (cùng cha .member-gallery-instagram)
+            const gallery = Array.from(this.closest('.member-gallery-instagram').querySelectorAll('.member-gallery-img'));
+            currentGallery = gallery;
+            currentIndex = gallery.indexOf(this);
+            modal.style.display = 'flex';
+            modalImg.src = this.src;
+            modalImg.alt = this.alt;
+        });
+    });
+
+    // Chuyển ảnh theo index
+    function showImageAt(index) {
+        if (!currentGallery.length) return;
+        // Vòng lặp khi vượt quá đầu/cuối
+        if (index < 0) index = currentGallery.length - 1;
+        if (index >= currentGallery.length) index = 0;
+        currentIndex = index;
+        const img = currentGallery[currentIndex];
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+    }
+
+    // Xử lý mũi tên
+    arrowLeft.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showImageAt(currentIndex - 1);
+    });
+    arrowRight.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showImageAt(currentIndex + 1);
+    });
+
+    // Close modal when click close button or outside image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modalImg.src = '';
+            currentGallery = [];
+            currentIndex = 0;
+        }
+    });
+}); 
+
+// Zoom gallery media modal
+// Sử dụng lại modal #image-modal, cho phép phóng to cả ảnh và video trong gallery
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('image-modal-img');
+    const arrowLeft = document.querySelector('.image-modal-arrow-left');
+    const arrowRight = document.querySelector('.image-modal-arrow-right');
+
+    // Lưu trữ danh sách gallery media và vị trí đang xem
+    let galleryMedia = [];
+    let galleryIndex = 0;
+    let isGalleryMode = false;
+
+    // Open modal when click gallery image or video
+    const galleryElements = document.querySelectorAll('.gallery-media');
+    galleryElements.forEach((el, idx) => {
+        el.addEventListener('click', function() {
+            galleryMedia = Array.from(galleryElements);
+            galleryIndex = idx;
+            isGalleryMode = true;
+            showGalleryMediaAt(galleryIndex);
+            modal.style.display = 'flex';
+        });
+    });
+
+    function showGalleryMediaAt(index) {
+        if (!galleryMedia.length) return;
+        if (index < 0) index = galleryMedia.length - 1;
+        if (index >= galleryMedia.length) index = 0;
+        galleryIndex = index;
+        const el = galleryMedia[galleryIndex];
+        if (el.tagName === 'IMG') {
+            modalImg.style.display = 'block';
+            modalImg.src = el.src;
+            modalImg.alt = el.alt;
+            // Xóa video nếu có
+            removeModalVideo();
+        } else if (el.tagName === 'VIDEO') {
+            modalImg.style.display = 'none';
+            showModalVideo(el.querySelector('source').src, el.poster);
+        }
+    }
+
+    function showModalVideo(src, poster) {
+        removeModalVideo();
+        const video = document.createElement('video');
+        video.className = 'image-modal-content';
+        video.src = src;
+        video.poster = poster || '';
+        video.controls = true;
+        video.autoplay = true;
+        video.style.maxWidth = '90vw';
+        video.style.maxHeight = '80vh';
+        video.style.borderRadius = '12px';
+        video.style.background = '#000';
+        video.style.display = 'block';
+        video.style.margin = '0 auto';
+        video.id = 'image-modal-video';
+        modal.querySelector('.image-modal-controls').before(video);
+    }
+
+    function removeModalVideo() {
+        const oldVideo = document.getElementById('image-modal-video');
+        if (oldVideo) oldVideo.remove();
+    }
+
+    // Chuyển media
+    arrowLeft.addEventListener('click', function(e) {
+        if (isGalleryMode) {
+            e.stopPropagation();
+            showGalleryMediaAt(galleryIndex - 1);
+        }
+    });
+    arrowRight.addEventListener('click', function(e) {
+        if (isGalleryMode) {
+            e.stopPropagation();
+            showGalleryMediaAt(galleryIndex + 1);
+        }
+    });
+
+    // Đóng modal khi click ngoài
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modalImg.src = '';
+            removeModalVideo();
+            galleryMedia = [];
+            galleryIndex = 0;
+            isGalleryMode = false;
+        }
+    });
 }); 
