@@ -114,6 +114,18 @@ body::after {
     border-radius: 8px;
     transition: all 0.3s ease;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.nav-link:active {
+    border-radius: 8px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-link:focus {
+    border-radius: 8px;
+    outline: none;
 }
 
 .nav-link:hover {
@@ -140,6 +152,18 @@ body::after {
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
     margin-right: 20px;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.nav-toggle:active {
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-toggle:focus {
+    border-radius: 50%;
+    outline: none;
 }
 
 /* Main Content */
@@ -334,6 +358,21 @@ body::after {
     cursor: pointer;
     min-width: 260px;
     justify-content: center;
+    /* Đảm bảo vùng active cũng được bo góc */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+/* Đảm bảo vùng active/touch có cùng border-radius */
+.contact-btn:active {
+    border-radius: 30px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Đảm bảo vùng focus cũng được bo góc */
+.contact-btn:focus {
+    border-radius: 30px;
+    outline: none;
 }
 
 .contact-btn i {
@@ -529,6 +568,18 @@ body::after {
     font-size: 1.2rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.social-link:active {
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.social-link:focus {
+    border-radius: 50%;
+    outline: none;
 }
 
 .social-link:hover {
@@ -936,6 +987,16 @@ section {
     padding: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.member-card-header:active {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.member-card-header:focus {
+    outline: none;
 }
 
 .member-card-header:hover {
@@ -1265,6 +1326,17 @@ section {
     outline: none;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.image-modal-arrow:active {
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.image-modal-arrow:focus {
+    border-radius: 50%;
+    outline: none;
 }
 .image-modal-arrow svg {
     display: block;
