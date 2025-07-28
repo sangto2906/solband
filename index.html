@@ -245,163 +245,26 @@
             </div>
         </section>
 
-        <!-- Gallery Section (Placeholder for future) -->
+        <!-- Gallery Section -->
         <section id="gallery" class="gallery-section">
             <h2 class="section-title">📸 HÌNH ẢNH & VIDEO</h2>
-            <div id="gallery-drive" class="gallery-grid"></div>
-        </section>
-        <!-- Modal xem Google Drive file -->
-        <div id="drive-modal" class="drive-modal" style="display:none;">
-            <div class="drive-modal-backdrop"></div>
-            <div class="drive-modal-content">
-                <button class="drive-modal-close" aria-label="Đóng">&times;</button>
-                <iframe id="drive-modal-iframe" src="" width="900" height="540" allow="autoplay" frameborder="0" allowfullscreen style="border-radius:12px;width:100%;max-width:900px;height:60vh;"></iframe>
+            <div class="gallery-link-container">
+                <a href="https://drive.google.com/drive/folders/1C4St8rZJL_S58zkWjR1NuCe17G9nTLcC" target="_blank" class="gallery-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Xem tại đây</span>
+                </a>
             </div>
-        </div>
-        <script>
-        const API_KEY = 'AIzaSyAiYo3wE4XE100VAaM8Wzch4BiGS92ZsbE';
-        const FOLDER_ID = '1C4St8rZJL_S58zkWjR1NuCe17G9nTLcC';
-        const IMAGE_MIME = [
-          'image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'
-        ];
-        const VIDEO_MIME = [
-          'video/mp4', 'video/quicktime', 'video/x-m4v', 'video/3gpp'
-        ];
-        async function fetchDriveFiles() {
-          const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents+and+trashed=false&fields=files(id,name,mimeType,thumbnailLink)&key=${API_KEY}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          return data.files || [];
-        }
-        function getImageUrl(file) {
-          return file.thumbnailLink || `https://drive.google.com/uc?export=view&id=${file.id}`;
-        }
-        function getDrivePreviewUrl(file) {
-          return `https://drive.google.com/file/d/${file.id}/preview`;
-        }
-        function renderGallery(files) {
-          const gallery = document.getElementById('gallery-drive');
-          if (!gallery) return;
-          const images = files.filter(f => IMAGE_MIME.includes(f.mimeType));
-          const videos = files.filter(f => VIDEO_MIME.includes(f.mimeType));
-          let html = '';
-          images.forEach(f => {
-            html += `
-              <a href="#" class="gallery-media gallery-img-link" data-id="${f.id}">
-                <img class="gallery-media gallery-img" src="${getImageUrl(f)}" alt="${f.name}">
-              </a>
-            `;
-          });
-          videos.forEach(f => {
-            html += `
-              <a href="#" class="gallery-media gallery-video-link" data-id="${f.id}">
-                <div class="gallery-video-poster" style="background-image:url('${f.thumbnailLink || ''}');">
-                  <span class="gallery-video-play">&#9658;</span>
-                </div>
-                <div class="gallery-video-title">${f.name}</div>
-              </a>
-            `;
-          });
-          gallery.innerHTML = html;
-
-          // Gán sự kiện click mở modal Google Drive Viewer
-          document.querySelectorAll('.gallery-img-link, .gallery-video-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-              e.preventDefault();
-              const fileId = this.getAttribute('data-id');
-              openDriveModal(fileId);
-            });
-          });
-        }
-        function openDriveModal(fileId) {
-          const modal = document.getElementById('drive-modal');
-          const iframe = document.getElementById('drive-modal-iframe');
-          iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
-          modal.style.display = 'flex';
-        }
-        function closeDriveModal() {
-          const modal = document.getElementById('drive-modal');
-          const iframe = document.getElementById('drive-modal-iframe');
-          iframe.src = '';
-          modal.style.display = 'none';
-        }
-        document.addEventListener('DOMContentLoaded', async () => {
-          const files = await fetchDriveFiles();
-          renderGallery(files);
-          // Đóng modal khi bấm nút hoặc backdrop
-          document.querySelector('.drive-modal-close').onclick = closeDriveModal;
-          document.querySelector('.drive-modal-backdrop').onclick = closeDriveModal;
-        });
-        </script>
-        <style>
-        .gallery-img-link, .gallery-video-link {
-          display: block;
-          position: relative;
-          border-radius: 14px;
-          overflow: hidden;
-          background: #222c37;
-          transition: box-shadow 0.18s, transform 0.18s;
-        }
-        .gallery-img-link:hover, .gallery-video-link:hover {
-          box-shadow: 0 6px 24px rgba(50,50,50,0.18);
-          transform: scale(1.04);
-        }
-        .gallery-video-poster {
-          width: 100%;
-          aspect-ratio: 1/1;
-          background-size: cover;
-          background-position: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .gallery-video-play {
-          font-size: 3rem;
-          color: #fff;
-          background: rgba(0,0,0,0.5);
-          border-radius: 50%;
-          padding: 12px 18px;
-        }
-        .gallery-video-title {
-          text-align: center;
-          color: #fff;
-          font-size: 1rem;
-          padding: 6px 0;
-          background: rgba(0,0,0,0.3);
-        }
-        .drive-modal {
-          position: fixed;z-index: 9999;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);
-        }
-        .drive-modal-content {
-          position: relative;z-index:2;background: #181c24;padding: 24px 12px 12px 12px;border-radius: 16px;box-shadow: 0 8px 32px rgba(0,0,0,0.18);max-width: 96vw;width:900px;max-height:90vh;display:flex;flex-direction:column;align-items:center;
-        }
-        .drive-modal-close {
-          position: absolute;top:8px;right:16px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer;z-index:3;-webkit-appearance:none;-webkit-tap-highlight-color:transparent;outline:none;
-        }
-        .drive-modal-backdrop {
-          position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1;
-        }
-        @media (max-width: 900px) {
-          .drive-modal-content {width:98vw;}
-        }
-        @media (max-width: 600px) {
-          .drive-modal-content {padding: 8px 2px 2px 2px;}
-          #drive-modal-iframe {height: 40vh !important;}
-        }
-        </style>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
             <div class="social-links">
-                <a href="#" class="social-link" aria-label="Facebook">
+                <a href="https://www.facebook.com/oxuanhai.476315" class="social-link" aria-label="Facebook" target="_blank">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="#" class="social-link" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-link" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
+                <a href="tel:0338195625" class="social-link" aria-label="Phone">
+                    <i class="fas fa-phone"></i>
                 </a>
             </div>
             <div class="footer-text">
