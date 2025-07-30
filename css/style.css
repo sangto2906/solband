@@ -832,27 +832,33 @@ section {
     text-align: left;
     margin: 0;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 10px;
 }
 
-.member-info-left .member-description::-webkit-scrollbar {
-    width: 6px;
-}
+/* Desktop only - scrollable description */
+@media (min-width: 1025px) {
+    .member-info-left .member-description {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
 
-.member-info-left .member-description::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
+    .member-info-left .member-description::-webkit-scrollbar {
+        width: 6px;
+    }
 
-.member-info-left .member-description::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.5);
-    border-radius: 3px;
-}
+    .member-info-left .member-description::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
 
-.member-info-left .member-description::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.7);
+    .member-info-left .member-description::-webkit-scrollbar-thumb {
+        background: rgba(99, 102, 241, 0.5);
+        border-radius: 3px;
+    }
+
+    .member-info-left .member-description::-webkit-scrollbar-thumb:hover {
+        background: rgba(99, 102, 241, 0.7);
+    }
 }
 
 /* Instagram Style Gallery */
@@ -912,9 +918,6 @@ section {
     }
     
     .member-info-left .member-description {
-        max-height: 300px;
-        overflow-y: auto;
-        padding-right: 8px;
         font-size: 0.9rem;
         line-height: 1.5;
     }
@@ -995,7 +998,7 @@ section {
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid #e0e7ff;
-    box-shadow: 0 4px 16px rgba(99,102,241,0.18);
+    box-shadow: 0 4px 16px rgba(99,102,241,0.18);   
 }
 
 .member-card-info {
@@ -1416,9 +1419,6 @@ section {
     }
     
     .member-info-left .member-description {
-        max-height: 350px;
-        overflow-y: auto;
-        padding-right: 10px;
         font-size: 0.95rem;
         line-height: 1.55;
     }
