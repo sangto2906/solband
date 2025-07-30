@@ -59,7 +59,7 @@ body::after {
 .logo-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    background: linear-gradient(135deg, #8AAAE5, #8AAAE5);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -121,19 +121,19 @@ body::after {
 
 .nav-link:hover {
     background: rgba(99, 102, 241, 0.1);
-    color: #6366f1;
+    color: #8AAAE5;
 }
 
 .nav-link.active {
     background: rgba(99, 102, 241, 0.2);
-    color: #6366f1;
+    color: #8AAAE5;
 }
 
 .nav-toggle {
     display: none;
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #8AAAE5, #8AAAE5);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -172,7 +172,7 @@ body::after {
 .hero-section {
     text-align: center;
     padding: 60px 40px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #8AAAE5, #8AAAE5);
     color: white;
     border-radius: 30px;
     box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
@@ -212,7 +212,7 @@ body::after {
     padding: 20px;
     background: rgba(99, 102, 241, 0.05);
     border-radius: 15px;
-    border-left: 4px solid #6366f1;
+    border-left: 4px solid #8AAAE5;
     transition: all 0.3s ease;
 }
 
@@ -222,7 +222,7 @@ body::after {
 }
 
 .service-item i {
-    color: #6366f1;
+    color: #8AAAE5;
     font-size: 1.2rem;
     min-width: 20px;
 }
@@ -257,7 +257,7 @@ body::after {
     line-height: 1.8;
     text-align: center;
     font-weight: 500;
-    color: #6366f1;
+    color: #8AAAE5;
 }
 
 /* Commitment Section */
@@ -444,14 +444,14 @@ body::after {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #e0e7ff;
+    border: 4px solid #8AAAE5;
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
     transition: all 0.3s ease;
 }
 
 .team-member:hover .member-img {
     transform: scale(1.1);
-    border-color: #6366f1;
+    border-color: #8AAAE5;
 }
 
 .member-info {
@@ -494,7 +494,7 @@ body::after {
     object-fit: cover;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(99,102,241,0.10);
-    border: 2px solid #e0e7ff;
+    border: 2px solid #8AAAE5;
     transition: transform 0.2s, box-shadow 0.2s;
     background: #fff;
 }
@@ -502,7 +502,7 @@ body::after {
 .member-gallery-img:hover {
     transform: scale(1.08) rotate(-2deg);
     box-shadow: 0 4px 16px rgba(99,102,241,0.18);
-    border-color: #6366f1;
+    border-color: #8AAAE5;
 }
 
 /* Footer */
@@ -529,7 +529,7 @@ body::after {
 .social-link {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #8AAAE5, #8AAAE5);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -801,7 +801,7 @@ section {
     height: 140px;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #e0e7ff;
+    border: 4px solid #8AAAE5;
     box-shadow: 0 4px 16px rgba(99,102,241,0.18);
     margin-bottom: 15px;
 }
@@ -819,7 +819,7 @@ section {
 
 .member-info-left .member-role {
     font-size: 1.1rem;
-    color: #57a9c9;
+    color: #8AAAE5;
     font-weight: 500;
     margin-bottom: 15px;
     text-align: left;
@@ -879,7 +879,7 @@ section {
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(99,102,241,0.10);
-    border: 2px solid #e0e7ff;
+    border: 2px solid #8AAAE5;
     transition: transform 0.2s, box-shadow 0.2s;
     background: #fff;
 }
@@ -887,7 +887,7 @@ section {
 .member-gallery-instagram .member-gallery-img:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 16px rgba(99,102,241,0.18);
-    border-color: #6366f1;
+    border-color: #8AAAE5;
     z-index: 1;
 }
 
@@ -997,7 +997,7 @@ section {
     height: 80px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #e0e7ff;
+    border: 3px solid #8AAAE5;
     box-shadow: 0 4px 16px rgba(99,102,241,0.18);   
 }
 
@@ -1014,7 +1014,7 @@ section {
 
 .member-card-role {
     font-size: 1rem;
-    color: #57a9c9;
+    color: #8AAAE5;
     font-weight: 500;
     margin: 0;
 }
@@ -1045,7 +1045,7 @@ section {
 
 /* Active member card */
 .member-card.active {
-    border-color: #6366f1;
+    border-color: #8AAAE5;
     box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2);
 }
 
@@ -1177,7 +1177,7 @@ section {
     align-items: center;
     gap: 12px;
     padding: 16px 32px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #8AAAE5, #8AAAE5);
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
