@@ -1,4 +1,3 @@
-// Main JavaScript for BAND Website
 class BandWebsite {
     constructor() {
         this.init();
@@ -8,10 +7,9 @@ class BandWebsite {
         this.setupMobileMenu();
         this.setupAnimations();
         this.setupScrollEffects();
-        // Đã loại bỏ setupContactLinks vì không còn cần thiết
+
     }
 
-    // Mobile menu functionality
     setupMobileMenu() {
         const navToggle = document.querySelector('.nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
@@ -22,7 +20,6 @@ class BandWebsite {
             });
         }
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target)) {
                 navMenu.classList.remove('active');
@@ -30,12 +27,9 @@ class BandWebsite {
         });
     }
 
-    // GSAP animations
     setupAnimations() {
-        // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animate sections on scroll
         const isMobile = window.innerWidth <= 700;
         gsap.utils.toArray('section').forEach((section, index) => {
             gsap.fromTo(section, 
@@ -52,9 +46,7 @@ class BandWebsite {
         });
     }
 
-    // Scroll effects
     setupScrollEffects() {
-        // Parallax effect for hero section (chỉ chạy nếu tồn tại .hero-section)
         const heroSection = document.querySelector('.hero-section');
         const isMobile = window.innerWidth <= 700;
         if (heroSection && !isMobile) {
@@ -70,7 +62,6 @@ class BandWebsite {
             });
         }
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -82,9 +73,6 @@ class BandWebsite {
         });
     }
 
-    // Đã loại bỏ setupContactLinks vì không còn cần thiết
-
-    // Utility function to add loading animation
     addLoadingAnimation() {
         const loader = document.createElement('div');
         loader.className = 'page-loader';
@@ -121,7 +109,6 @@ class BandWebsite {
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         `;
-        // Add keyframes for spinner animation
         if (!document.getElementById('loader-spin-keyframes')) {
             const style = document.createElement('style');
             style.id = 'loader-spin-keyframes';
@@ -131,7 +118,6 @@ class BandWebsite {
             document.head.appendChild(style);
         }
         document.body.appendChild(loader);
-        // Remove loader after page loads
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.style.opacity = '0';
@@ -143,18 +129,14 @@ class BandWebsite {
     }
 }
 
-// Initialize the website when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const bandWebsite = new BandWebsite();
     
-    // Add loading animation
     bandWebsite.addLoadingAnimation();
 });
 
-// Add smooth scrolling behavior
 document.documentElement.style.scrollBehavior = 'smooth';
 
-// Lazy load all images with loading="lazy" and data-src
 function enableLazyLoad() {
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -177,13 +159,11 @@ function enableLazyLoad() {
 }
 document.addEventListener('DOMContentLoaded', enableLazyLoad);
 
-// Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const navToggle = document.querySelector('.nav-toggle');
     const navList = document.querySelector('.nav-list');
     
-    // Smooth scroll to sections
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -192,19 +172,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                // Remove active class from all links
                 navLinks.forEach(l => l.classList.remove('active'));
                 
-                // Add active class to clicked link
                 this.classList.add('active');
                 
-                // Smooth scroll to target section
                 targetSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
                 
-                // Close mobile menu if open
                 if (navList.classList.contains('show')) {
                     navList.classList.remove('show');
                 }
@@ -212,21 +188,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mobile menu toggle
     if (navToggle) {
         navToggle.addEventListener('click', function() {
             navList.classList.toggle('show');
         });
     }
     
-    // Close mobile menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-menu')) {
             navList.classList.remove('show');
         }
     });
     
-    // Update active nav link on scroll
     window.addEventListener('scroll', function() {
         const sections = document.querySelectorAll('section[id]');
         const scrollPos = window.scrollY + 100;
@@ -246,14 +219,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Set active link for home section by default
     const homeLink = document.querySelector('.nav-link[href="#home"]');
     if (homeLink) {
         homeLink.classList.add('active');
     }
 });
 
-// Member card click functionality
 document.addEventListener('DOMContentLoaded', function() {
     const memberCards = document.querySelectorAll('.member-card');
     const memberDetails = document.querySelectorAll('.member-detail');
@@ -265,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const memberId = card.getAttribute('data-member');
             const detail = document.getElementById(`member-detail-${memberId}`);
             
-            // If this card is already active, close it
             if (card.classList.contains('active')) {
                 card.classList.remove('active');
                 detail.classList.remove('show');
@@ -273,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Remove active class from all cards and close all details
             memberCards.forEach(c => {
                 c.classList.remove('active');
             });
@@ -283,15 +252,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 d.style.display = 'none';
             });
             
-            // Add active class to clicked card and show detail
             card.classList.add('active');
             detail.style.display = 'block';
             
-            // Use setTimeout to ensure display: block is applied before adding show class
             setTimeout(() => {
                 detail.classList.add('show');
                 
-                // Smooth scroll to details
                 detail.scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
@@ -300,7 +266,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Initialize with first member selected
     if (memberCards.length > 0) {
         const firstCard = memberCards[0];
         const firstDetail = document.getElementById('member-detail-1');
@@ -312,22 +277,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }); 
 
-// Zoom member image modal
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('image-modal');
     const modalImg = document.getElementById('image-modal-img');
     const arrowLeft = document.querySelector('.image-modal-arrow-left');
     const arrowRight = document.querySelector('.image-modal-arrow-right');
 
-    // Lưu trữ danh sách ảnh hiện tại và vị trí đang xem
     let currentGallery = [];
     let currentIndex = 0;
 
-    // Open modal when click image
     const galleryImages = document.querySelectorAll('.member-gallery-img');
     galleryImages.forEach(img => {
         img.addEventListener('click', function() {
-            // Xác định gallery hiện tại (cùng cha .member-gallery-instagram)
             const gallery = Array.from(this.closest('.member-gallery-instagram').querySelectorAll('.member-gallery-img'));
             currentGallery = gallery;
             currentIndex = gallery.indexOf(this);
@@ -337,10 +298,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Chuyển ảnh theo index
     function showImageAt(index) {
         if (!currentGallery.length) return;
-        // Vòng lặp khi vượt quá đầu/cuối
         if (index < 0) index = currentGallery.length - 1;
         if (index >= currentGallery.length) index = 0;
         currentIndex = index;
@@ -349,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
         modalImg.alt = img.alt;
     }
 
-    // Xử lý mũi tên
     arrowLeft.addEventListener('click', function(e) {
         e.stopPropagation();
         showImageAt(currentIndex - 1);
@@ -359,7 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
         showImageAt(currentIndex + 1);
     });
 
-    // Close modal when click close button or outside image
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             modal.style.display = 'none';
@@ -370,21 +327,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }); 
 
-// Zoom gallery media modal
-// Sử dụng lại modal #image-modal, cho phép phóng to cả ảnh và video trong gallery
-
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('image-modal');
     const modalImg = document.getElementById('image-modal-img');
     const arrowLeft = document.querySelector('.image-modal-arrow-left');
     const arrowRight = document.querySelector('.image-modal-arrow-right');
 
-    // Lưu trữ danh sách gallery media và vị trí đang xem
     let galleryMedia = [];
     let galleryIndex = 0;
     let isGalleryMode = false;
 
-    // Open modal when click gallery image or video
     const galleryElements = document.querySelectorAll('.gallery-media');
     galleryElements.forEach((el, idx) => {
         el.addEventListener('click', function() {
@@ -406,7 +358,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modalImg.style.display = 'block';
             modalImg.src = el.src;
             modalImg.alt = el.alt;
-            // Xóa video nếu có
             removeModalVideo();
         } else if (el.tagName === 'VIDEO') {
             modalImg.style.display = 'none';
@@ -437,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (oldVideo) oldVideo.remove();
     }
 
-    // Chuyển media
     arrowLeft.addEventListener('click', function(e) {
         if (isGalleryMode) {
             e.stopPropagation();
@@ -451,7 +401,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Đóng modal khi click ngoài
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             modal.style.display = 'none';
