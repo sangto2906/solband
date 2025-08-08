@@ -75,16 +75,21 @@ body::after {
     font-family: 'Inter', sans-serif;
 }
 
-.logo-text-img {
-    height: 8rem;
-    width: auto;
-    object-fit: contain;
-    display: block;
+.logo-text-link {
     position: absolute;
     left: 130px;
     top: 70%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-text-img {
+    height: 8rem;
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .logo-img {
@@ -585,6 +590,11 @@ body::after {
     .logo {
         margin-left: 10px;
         padding-left: 0;
+    }
+    
+    .logo-text-link {
+        left: 110px;
+        top: 70%;
     }
     
     .logo-text-img {
