@@ -52,6 +52,7 @@ body::after {
     align-items: center;
     gap: 14px;
     padding-left: 32px;
+    position: relative;
 }
 
 .logo-icon {
@@ -74,6 +75,18 @@ body::after {
     font-family: 'Inter', sans-serif;
 }
 
+.logo-text-img {
+    height: 8rem;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    position: absolute;
+    left: 130px;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
 .logo-img {
     height: 48px;
     width: 48px;
@@ -82,6 +95,9 @@ body::after {
     border-radius: 50%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     background: #fff;
+    position: relative;
+    z-index: 2;
+    transform: translateY(10%);
 }
 
 .nav-menu {
@@ -567,7 +583,13 @@ body::after {
     }
     
     .logo {
-        margin-left: 20px;
+        margin-left: 10px;
+        padding-left: 0;
+    }
+    
+    .logo-text-img {
+        left: 110px;
+        top: 70%;
     }
     
     .logo-text {
